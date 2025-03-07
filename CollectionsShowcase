@@ -1,0 +1,119 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+        ExecuteListOperations();
+        ExecuteDictionaryOperations();
+        ExecuteQueueAndStackOperations();
+        ExecuteCollectionInteraction();
+    }
+
+    static void ExecuteListOperations()
+    {
+        Console.WriteLine("=== Task 1: List (List) ===");
+        List<int> numbers = new List<int> { 5, 3, 8, 1, 4 };
+        DisplayList("List before changes:", numbers);
+
+        numbers.AddRange(new[] { 7, 2 });
+        DisplayList("List after addition:", numbers);
+
+        numbers.Remove(3);
+        DisplayList("List after removing 3:", numbers);
+
+        int index = numbers.IndexOf(8);
+        Console.WriteLine("Index of element 8: " + index);
+
+        numbers.Sort();
+        DisplayList("List after sorting:", numbers);
+        Console.WriteLine();
+    }
+
+    static void ExecuteDictionaryOperations()
+    {
+        Console.WriteLine("=== Task 2: Dictionary (Dictionary) ===");
+        Dictionary<string, int> ages = new Dictionary<string, int>
+        {
+            { "Alexey", 30 },
+            { "Boris", 25 },
+            { "Vladimir", 35 }
+        };
+        DisplayDictionary("Dictionary before changes:", ages);
+
+        ages.Remove("Boris");
+        DisplayDictionary("Dictionary after removing Boris:", ages);
+        Console.WriteLine();
+    }
+
+    static void ExecuteQueueAndStackOperations()
+    {
+        Console.WriteLine("=== Task 3: Queue (Queue) and Stack (Stack) ===");
+
+        Queue<string> queue = new Queue<string>(new[] { "First", "Second", "Third" });
+        Console.WriteLine("Elements of the queue (FIFO):");
+        DequeueAll(queue);
+        
+        Stack<int> stack = new Stack<int>(new[] { 1, 2, 3 });
+        Console.WriteLine("\nElements of the stack (LIFO):");
+        PopAll(stack);
+        Console.WriteLine();
+    }
+
+    static void ExecuteCollectionInteraction()
+    {
+        Console.WriteLine("=== Task 4: Interaction between collections ===");
+        List<string> names = new List<string> { "Alexey", "Boris", "Vladimir" };
+
+        Dictionary<string, int> nameLengths = new Dictionary<string, int>();
+        foreach (var name in names)
+        {
+            nameLengths[name] = name.Length;
+        }
+
+        Queue<string> nameQueue = new Queue<string>(names);
+        Stack<int> lengthStack = new Stack<int>(nameLengths.Values);
+
+        DisplayList("List of names:", names);
+        DisplayDictionary("Lengths of names:", nameLengths);
+
+        Console.WriteLine("\nNames from the queue (FIFO):");
+        DequeueAll(nameQueue);
+
+        Console.WriteLine("\nLengths of names from the stack (LIFO):");
+        PopAll(lengthStack);
+    }
+
+    static void DisplayList(string message, List<int> list)
+    {
+        Console.WriteLine(message + " " + string.Join(", ", list));
+    }
+
+    static void DisplayDictionary(string message, Dictionary<string, int> dictionary)
+    {
+        Console.WriteLine(message);
+        foreach (var pair in dictionary)
+        {
+            Console.WriteLine($"{pair.Key}: {pair.Value}");
+        }
+    }
+
+    static void DequeueAll(Queue<string> queue)
+    {
+        while (queue.Count > 0)
+        {
+            Console.WriteLine(queue.Dequeue());
+        }
+    }
+
+    static void PopAll(Stack<int> stack)
+    {
+        while (stack.Count > 0)
+        {
+            Console.WriteLine(stack.Pop());
+        }
+    }
+}
